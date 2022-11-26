@@ -1,25 +1,23 @@
 #!/usr/bin/python3
-"""
-Test suits for amenities
-"""
-import os
-import models
+"""Test suite for the State class of the models.state module"""
 import unittest
-from datetime import datetime
+
 from models.base_model import BaseModel
+from models.state import State
 
 
 class TestState(unittest.TestCase):
-    """
-    Tests for amenities
-    """
+    """Test cases for the State class"""
 
-    def test_name(self):
-        """
-        Tests for name inputs
-        """
-        pass
+    def setUp(self):
+        self.state = State()
 
+    def test_state_is_a_subclass_of_basemodel(self):
+        self.assertTrue(issubclass(type(self.state), BaseModel))
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_attr_is_a_class_attr(self):
+        self.assertTrue(hasattr(self.state, "name"))
+
+    def test_class_attrs(self):
+        self.assertIs(type(self.state.name), str)
+        self.assertFalse(bool(self.state.name))
