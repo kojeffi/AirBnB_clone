@@ -1,27 +1,10 @@
 #!/usr/bin/python3
-
-"""Module"""
-
-from .base_model import BaseModel
-
-
-
+"""Contains the Review model"""
+from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-
-    """Inherits from BaseModel"""
-
+    """Implements the Review model"""
     place_id = ""
-
     user_id = ""
-
     text = ""
-
-
-
-    def __init__(self, *args, **kwargs):
-
-        """Overriding constructor"""
-
-        super().__init__(*args, **kwargs)

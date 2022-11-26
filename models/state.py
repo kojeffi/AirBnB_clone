@@ -1,23 +1,8 @@
 #!/usr/bin/python3
-
-"""Module"""
-
-from .base_model import BaseModel
-
-
-
+"""A module containing the State model"""
+from models.base_model import BaseModel
 
 
 class State(BaseModel):
-
-    """Inherits from BaseModel"""
-
+    """Implements the State model for any state object"""
     name = ""
-
-
-
-    def __init__(self, *args, **kwargs):
-
-        """Overriding constructor"""
-
-        super().__init__(*args, **kwargs)

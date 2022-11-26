@@ -1,25 +1,9 @@
 #!/usr/bin/python3
-
-"""Module"""
-
-from .base_model import BaseModel
-
-
-
+"""Contains the City model"""
+from models.base_model import BaseModel
 
 
 class City(BaseModel):
-
-    """Inherits from BaseModel"""
-
-    name = ""
-
+    """Implements the City class"""
     state_id = ""
-
-
-
-    def __init__(self, *args, **kwargs):
-
-        """Overriding constructor"""
-
-        super().__init__(*args, **kwargs)
+    name = ""
