@@ -1,13 +1,23 @@
 #!/usr/bin/python3
-"""
-Defines the State class
-"""
-from models.base_model import BaseModel
+
+"""Module"""
+
+from .base_model import BaseModel
+
+
+
 
 
 class State(BaseModel):
-    """Represent a state
-    Attributes:
-        name (str): The name of the state
-    """
+
+    """Inherits from BaseModel"""
+
     name = ""
+
+
+
+    def __init__(self, *args, **kwargs):
+
+        """Overriding constructor"""
+
+        super().__init__(*args, **kwargs)

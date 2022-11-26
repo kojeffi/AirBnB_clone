@@ -1,22 +1,49 @@
 #!/usr/bin/python3
-"""Test suite for the City class of the models.city module"""
-import unittest
 
-from models.base_model import BaseModel
+"""Module for test city"""
+
+from unittest import TestCase
+
 from models.city import City
 
+from models.base_model import BaseModel
 
-class TestCity(unittest.TestCase):
-    """Test cases for the City class"""
+from .test_class import TestClassDocumentation
 
-    def setUp(self):
-        self.city = City()
-        self.attr_list = ["state_id", "name"]
 
-    def test_city_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.city), BaseModel))
 
-    def test_attrs_are_class_attrs(self):
-        for attr in self.attr_list:
-            self.assertIs(type(getattr(self.city, attr)), str)
-            self.assertFalse(bool(getattr(self.city, attr)))
+
+
+class TestCity(TestCase):
+
+    """Test cases for State"""
+
+
+
+    def test_code_review(self):
+
+        """Test documentation and pep8"""
+
+        t = TestClassDocumentation(self, City)
+
+        t.documentation()
+
+        t.pep8(['models/city.py', 'tests/test_models/test_city.py'])
+
+
+
+    def test_class(self):
+
+        """Validate the types of the attributes an class"""
+
+        with self.subTest(msg='Inheritance'):
+
+            self.assertTrue(issubclass(City, BaseModel))
+
+
+
+        with self.subTest(msg='Attributes'):
+
+            self.assertIsInstance(City.name, str)
+
+            self.assertIsInstance(City.state_id, str)

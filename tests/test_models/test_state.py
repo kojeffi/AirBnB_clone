@@ -1,23 +1,47 @@
 #!/usr/bin/python3
-"""Test suite for the State class of the models.state module"""
-import unittest
 
-from models.base_model import BaseModel
+"""Module for test state"""
+
+from unittest import TestCase
+
 from models.state import State
 
+from models.base_model import BaseModel
 
-class TestState(unittest.TestCase):
-    """Test cases for the State class"""
+from .test_class import TestClassDocumentation
 
-    def setUp(self):
-        self.state = State()
 
-    def test_state_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.state), BaseModel))
 
-    def test_attr_is_a_class_attr(self):
-        self.assertTrue(hasattr(self.state, "name"))
 
-    def test_class_attrs(self):
-        self.assertIs(type(self.state.name), str)
-        self.assertFalse(bool(self.state.name))
+
+class TestState(TestCase):
+
+    """Test cases for State"""
+
+
+
+    def test_code_review(self):
+
+        """Test documentation and pep8"""
+
+        t = TestClassDocumentation(self, State)
+
+        t.documentation()
+
+        t.pep8(['models/state.py', 'tests/test_models/test_state.py'])
+
+
+
+    def test_class(self):
+
+        """Validate the types of the attributes an class"""
+
+        with self.subTest(msg='Inheritance'):
+
+            self.assertTrue(issubclass(State, BaseModel))
+
+
+
+        with self.subTest(msg='Attributes'):
+
+            self.assertIsInstance(State.name, str)

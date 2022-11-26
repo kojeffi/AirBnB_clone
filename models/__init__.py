@@ -1,9 +1,6 @@
 #!/usr/bin/python3
-"""
-__init__ dunder method for the models directory
-"""
+"""Init file of models package"""
 from models.engine.file_storage import FileStorage
-
 
 storage = FileStorage()
 storage.reload()

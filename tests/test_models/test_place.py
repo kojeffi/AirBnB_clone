@@ -1,40 +1,67 @@
 #!/usr/bin/python3
-"""Test suite for the Place class of models.place"""
-import unittest
 
-from models.base_model import BaseModel
+"""Module for test place"""
+
+from unittest import TestCase
+
 from models.place import Place
 
+from models.base_model import BaseModel
 
-class TestPlace(unittest.TestCase):
-    """Test cases against the Place class"""
+from .test_class import TestClassDocumentation
 
-    def setUp(self):
-        self.place = Place()
-        self.attr_list = ["name", "user_id", "city_id", "description",
-                          "number_bathrooms", "max_guest", "number_rooms",
-                          "price_by_night", "latitude", "longitude",
-                          "amenity_ids"]
 
-    def test_attrs_are_class_attrs(self):
-        for attr in self.attr_list:
-            self.assertTrue(hasattr(Place, attr))
 
-    def test_class_attrs(self):
-        self.assertIs(type(self.place.name), str)
-        self.assertIs(type(self.place.city_id), str)
-        self.assertIs(type(self.place.user_id), str)
-        self.assertIs(type(self.place.description), str)
-        self.assertIs(type(self.place.number_bathrooms), int)
-        self.assertIs(type(self.place.max_guest), int)
-        self.assertIs(type(self.place.number_rooms), int)
-        self.assertIs(type(self.place.price_by_night), int)
-        self.assertIs(type(self.place.latitude), float)
-        self.assertIs(type(self.place.longitude), float)
-        self.assertIs(type(self.place.amenity_ids), list)
 
-        for attr in self.attr_list:
-            self.assertFalse(bool(getattr(self.place, attr)))
 
-    def test_place_obj_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.place), BaseModel))
+class TestState(TestCase):
+
+    """Test cases for Place"""
+
+
+
+    def test_code_review(self):
+
+        """Test documentation and pep8"""
+
+        t = TestClassDocumentation(self, Place)
+
+        t.documentation()
+
+        t.pep8(['models/place.py', 'tests/test_models/test_place.py'])
+
+
+
+    def test_class(self):
+
+        """Validate the types of the attributes an class"""
+
+        with self.subTest(msg='Inheritance'):
+
+            self.assertTrue(issubclass(Place, BaseModel))
+
+
+
+        with self.subTest(msg='Attributes'):
+
+            self.assertIsInstance(Place.city_id, str)
+
+            self.assertIsInstance(Place.user_id, str)
+
+            self.assertIsInstance(Place.name, str)
+
+            self.assertIsInstance(Place.description, str)
+
+            self.assertIsInstance(Place.number_rooms, int)
+
+            self.assertIsInstance(Place.number_bathrooms, int)
+
+            self.assertIsInstance(Place.max_guest, int)
+
+            self.assertIsInstance(Place.price_by_night, int)
+
+            self.assertIsInstance(Place.latitude, float)
+
+            self.assertIsInstance(Place.longitude, float)
+
+            self.assertIsInstance(Place.amenity_ids, list)

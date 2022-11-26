@@ -1,64 +1,112 @@
 #!/usr/bin/python3
-"""
-A module that implements the BaseModel class
-"""
+"""BaseModel for Airbnb Project"""
 
-from uuid import uuid4
+import uuid
+
 from datetime import datetime
 
+import models
 
-class BaseModel:
-    """
-    A class that defines all common attributes/methods for other classes
-    """
+
+
+time = "%Y-%m-%dT%H:%M:%S.%f"
+
+
+
+
+
+class BaseModel():
+
+    """Base class for classes"""
+
+
 
     def __init__(self, *args, **kwargs):
-        """
-        Initialize the BaseModel class
-        """
 
-        from models import storage
-        if not kwargs:
-            self.id = str(uuid4())
-            self.created_at = self.updated_at = datetime.now()
-            storage.new(self)
-        else:
+        """Constructor"""
+
+        if kwargs:
+
             for key, value in kwargs.items():
-                if key != '__class__':
-                    if key in ('created_at', 'updated_at'):
-                        setattr(self, key, datetime.fromisoformat(value))
-                    else:
-                        setattr(self, key, value)
+
+                if key == '__class__':
+
+                    continue
+
+
+
+                if key in ['created_at', 'updated_at']:
+
+                    setattr(self, key, self.string2time(value))
+
+                    continue
+
+
+
+                setattr(self, key, value)
+
+
+
+        else:
+
+            uuid_gen = uuid.uuid4()
+
+            self.id = str(uuid_gen)
+
+            now = datetime.now()
+
+            self.created_at = now
+
+            self.updated_at = now
+
+
+
+            models.storage.new(self)
+
+
+
+    @staticmethod
+
+    def string2time(date_string):
+
+        """Converts string to time"""
+
+        return datetime.strptime(date_string, time)
+
+
 
     def __str__(self):
-        """
-        Returns the string representation of BaseModel object.
-        [<class name>] (<self.id>) <self.__dict__>
-        """
-        return "[{}] ({}) {}".format(type(self).__name__, self.id,
-                                     self.__dict__)
+
+        """Returns string representation of an instance"""
+
+        return("[{}] ({}) {}"
+
+               .format(self.__class__.__name__, self.id, self.__dict__))
+
+
 
     def save(self):
-        """
-        Updates 'self.updated_at' with the current datetime
-        """
-        from models import storage
+
+        """Save an instance and set the updated time"""
+
         self.updated_at = datetime.now()
-        storage.save()
+
+        models.storage.save()
+
+
 
     def to_dict(self):
-        """
-        returns a dictionary containing all keys/values of __dict__
-        of the instance:
-        - only instance attributes set will be returned
-        - a key __class__ is added with the class name of the object
-        - created_at and updated_at must be converted to string object in ISO
-        object
-        """
-        dict_1 = self.__dict__.copy()
-        dict_1["__class__"] = self.__class__.__name__
-        for k, v in self.__dict__.items():
-            if k in ("created_at", "updated_at"):
-                v = self.__dict__[k].isoformat()
-                dict_1[k] = v
-        return dict_1
+
+        """Returns the attributes of the instance as a dict"""
+
+        var = self.__dict__.copy()
+
+
+
+        var['__class__'] = self.__class__.__name__
+
+        var['created_at'] = self.created_at.isoformat()
+
+        var['updated_at'] = self.updated_at.isoformat()
+
+        return var

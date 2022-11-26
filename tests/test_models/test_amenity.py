@@ -1,23 +1,24 @@
 #!/usr/bin/python3
-"""Test suite for Amenity class of the models.amenity module"""
-import unittest
-
-from models.base_model import BaseModel
+"""Module for test amenity"""
+from unittest import TestCase
 from models.amenity import Amenity
+from models.base_model import BaseModel
+from .test_class import TestClassDocumentation
 
 
-class TestAmenity(unittest.TestCase):
-    """Test cases for the Amenity class"""
+class TestAmenity(TestCase):
+    """Test cases for Amenity"""
 
-    def setUp(self):
-        self.amenity = Amenity()
+    def test_code_review(self):
+        """Test documentation and pep8"""
+        t = TestClassDocumentation(self, Amenity)
+        t.documentation()
+        t.pep8(['models/amenity.py', 'tests/test_models/test_amenity.py'])
 
-    def test_amenity_is_a_subclass_of_basemodel(self):
-        self.assertTrue(issubclass(type(self.amenity), BaseModel))
+    def test_class(self):
+        """Validate the types of the attributes an class"""
+        with self.subTest(msg='Inheritance'):
+            self.assertTrue(issubclass(Amenity, BaseModel))
 
-    def test_attr_is_a_class_attr(self):
-        self.assertTrue(hasattr(self.amenity, "name"))
-
-    def test_class_attr(self):
-        self.assertIs(type(self.amenity.name), str)
-        self.assertFalse(bool(getattr(self.amenity, "name")))
+        with self.subTest(msg='Attributes'):
+            self.assertIsInstance(Amenity.name, str)
