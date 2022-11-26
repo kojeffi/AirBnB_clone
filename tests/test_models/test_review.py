@@ -1,51 +1,30 @@
 #!/usr/bin/python3
-
-"""Module for test Review"""
-
-from unittest import TestCase
-
-from models.review import Review
+"""Test suite for Review class in models.review"""
+import unittest
 
 from models.base_model import BaseModel
-
-from .test_class import TestClassDocumentation
-
+from models.review import Review
 
 
+class TestReview(unittest.TestCase):
+    """Test cases for the Review class"""
 
+    def setUp(self):
+        self.review = Review()
+        self.attr_list = [
+            "place_id",
+            "user_id",
+            "text"
+        ]
 
-class TestReview(TestCase):
+    def test_review_is_a_subclass_of_basemodel(self):
+        self.assertTrue(issubclass(type(self.review), BaseModel))
 
-    """Test cases for State"""
+    def test_attrs_are_class_attrs(self):
+        for attr in self.attr_list:
+            self.assertTrue(hasattr(self.review, attr))
 
-
-
-    def test_code_review(self):
-
-        """Test documentation and pep8"""
-
-        t = TestClassDocumentation(self, Review)
-
-        t.documentation()
-
-        t.pep8(['models/review.py', 'tests/test_models/test_review.py'])
-
-
-
-    def test_class(self):
-
-        """Validate the types of the attributes an class"""
-
-        with self.subTest(msg='Inheritance'):
-
-            self.assertTrue(issubclass(Review, BaseModel))
-
-
-
-        with self.subTest(msg='Attributes'):
-
-            self.assertIsInstance(Review.place_id, str)
-
-            self.assertIsInstance(Review.text, str)
-
-            self.assertIsInstance(Review.user_id, str)
+    def test_class_attrs(self):
+        for attr in self.attr_list:
+            self.assertIs(type(getattr(self.review, attr)), str)
+            self.assertFalse(bool(getattr(self.review, attr)))
